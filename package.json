@@ -1,0 +1,19 @@
+{
+  "name": "odin-todo-list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TRANZCEND3NCE/Odin-Todo-List.git"
+  },
+  "keywords": [],
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/TRANZCEND3NCE/Odin-Todo-List/issues"
+  },
+  "homepage": "https://github.com/TRANZCEND3NCE/Odin-Todo-List#readme"
+}
