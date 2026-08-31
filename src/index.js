@@ -1,5 +1,19 @@
 import "./styles.css";
+import { createTodo } from "./todo.js";
 
-const app = document.querySelector("#app");
+const todo = createTodo(
+	"Study JavaScript",
+	"Work on the Todo List project",
+	"2026-09-05",
+	"high"
+);
 
-app.textContent = "Hello Todo List!";
+console.log(todo.completed);
+
+todo.toggleComplete();
+
+console.log(todo.completed);
+
+todo.toggleComplete();
+
+console.log(todo.completed);
