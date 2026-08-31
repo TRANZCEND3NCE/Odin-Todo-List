@@ -1,5 +1,8 @@
 import "./styles.css";
 import { createTodo } from "./todo.js";
+import { createProject } from "./project.js";
+
+const work = createProject("Work");
 
 const todo = createTodo(
 	"Study JavaScript",
@@ -8,12 +11,5 @@ const todo = createTodo(
 	"high"
 );
 
-console.log(todo.completed);
-
-todo.toggleComplete();
-
-console.log(todo.completed);
-
-todo.toggleComplete();
-
-console.log(todo.completed);
+work.addTodo(todo);
+ console.log(work);
