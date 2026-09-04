@@ -7,23 +7,31 @@ function createProjectManager() {
 	projects.push(inbox);
 
 	function addProject(name) {
-		const project = createProject(name);
+		const trimmedName = name.trim();
+
+		if (!trimmedName) {
+			return null;
+		}
+
+		const projectExists = projects.some((project) => project.name.toLowerCase() === trimmedName.toLowerCase());
+
+		if (projectExists) {
+			return null;
+		}
+
+		const project = createProject(trimmedName);
 
 		projects.push(project);
 
 		return project;
 	}
 
-	function getProject(projectId) {
-		return projects.find((project) => project.id === projectId);
-	}
-
-	function removeProject(projectId) {
-		if (projectId === inbox.id) {
+	function removeProject(projectName) {
+		if (projectName === "Inbox") {
 			return;
 		}
 
-		const projectIndex = projects.findIndex((project) => project.id === projectId);
+		const projectIndex = projects.findIndex((project) => project.name === projectName);
 
 		if (projectIndex !== -1) {
 			projects.splice(projectIndex, 1);
@@ -33,7 +41,6 @@ function createProjectManager() {
 	return {
 		projects,
 		addProject,
-		getProject,
 		removeProject,
 	};
 }
