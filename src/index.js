@@ -14,8 +14,27 @@ const todo = createTodo(
 	"high"
 );
 
-const selectedProject = projectManager.getProject(work.id);
+work.addTodo(todo);
 
-selectedProject.addTodo(todo);
+const selectedTodo = work.getTodo(todo.id);
 
-console.log(selectedProject);
+console.log("Before Update:", {
+	title: selectedTodo.title,
+	description: selectedTodo.description,
+	dueDate: selectedTodo.dueDate,
+	priority: selectedTodo.priority,
+});
+
+selectedTodo.updateDetails(
+	"Study factory functions",
+	"review factory functions and modules",
+	"2026-09-08",
+	"medium"
+)
+
+console.log("After update:", {
+	title: selectedTodo.title,
+	description: selectedTodo.description,
+	dueDate: selectedTodo.dueDate,
+	priority: selectedTodo.priority,
+});

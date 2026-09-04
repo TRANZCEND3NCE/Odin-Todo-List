@@ -7,6 +7,10 @@ function createProject(name) {
 		todos.push(todo);
 	}
 
+	function getTodo(todoId) {
+		return todos.find((todo) => todo.id === todoId);
+	}
+
 	function removeTodo(todoId) {
 		const todoIndex = todos.findIndex((todo) => todo.id === todoId);
 
@@ -20,6 +24,7 @@ function createProject(name) {
 		name,
 		todos,
 		addTodo,
+		getTodo,
 		removeTodo,
 	};
 }
