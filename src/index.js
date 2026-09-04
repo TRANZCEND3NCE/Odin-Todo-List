@@ -1,34 +1,21 @@
 import "./styles.css";
+
+import { createTodo } from "./todo.js";
 import { createProjectManager } from "./projectManager.js";
 
 const projectManager = createProjectManager();
 
-const work1 = projectManager.addProject("Work");
-const work2 = projectManager.addProject("Work");
+const work = projectManager.addProject("Work");
 
-console.log(
-	"Before removal:",
-	projectManager.projects.map((project) => ({
-		id: project.id,
-		name: project.name,
-	}))
+const todo = createTodo(
+	"Study Javascript",
+	"Work on the Todo List Project",
+	"2026-09-05",
+	"high"
 );
 
-projectManager.removeProject(work1.id);
+const selectedProject = projectManager.getProject(work.id);
 
-console.log(
-	"After removal:",
-	projectManager.projects.map((project) => ({
-		id:project.id,
-		name: project.name,
-	}))
-);
+selectedProject.addTodo(todo);
 
-const inbox = projectManager.projects[0];
-
-projectManager.removeProject(inbox.id);
-
-console.log(
-  "After trying to remove Inbox:",
-  projectManager.projects.map((project) => project.name)
-);
+console.log(selectedProject);

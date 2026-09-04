@@ -14,6 +14,10 @@ function createProjectManager() {
 		return project;
 	}
 
+	function getProject(projectId) {
+		return projects.find((project) => project.id === projectId);
+	}
+
 	function removeProject(projectId) {
 		if (projectId === inbox.id) {
 			return;
@@ -29,6 +33,7 @@ function createProjectManager() {
 	return {
 		projects,
 		addProject,
+		getProject,
 		removeProject,
 	};
 }
