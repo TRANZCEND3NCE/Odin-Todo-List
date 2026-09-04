@@ -14,12 +14,12 @@ function createProjectManager() {
 		return project;
 	}
 
-	function removeProject(projectName) {
-		if (projectName === "Inbox") {
+	function removeProject(projectId) {
+		if (projectId === inbox.id) {
 			return;
 		}
 
-		const projectIndex = projects.findIndex((project) => project.name === projectName);
+		const projectIndex = projects.findIndex((project) => project.id === projectId);
 
 		if (projectIndex !== -1) {
 			projects.splice(projectIndex, 1);

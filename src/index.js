@@ -3,15 +3,32 @@ import { createProjectManager } from "./projectManager.js";
 
 const projectManager = createProjectManager();
 
-projectManager.addProject("Work");
-projectManager.addProject("Personal");
+const work1 = projectManager.addProject("Work");
+const work2 = projectManager.addProject("Work");
 
-console.log("Projects:", projectManager.projects.map((project) => project.name));
+console.log(
+	"Before removal:",
+	projectManager.projects.map((project) => ({
+		id: project.id,
+		name: project.name,
+	}))
+);
 
-projectManager.removeProject("Work");
+projectManager.removeProject(work1.id);
 
-console.log("After removing Work:", projectManager.projects.map((project) => project.name));
+console.log(
+	"After removal:",
+	projectManager.projects.map((project) => ({
+		id:project.id,
+		name: project.name,
+	}))
+);
 
-projectManager.removeProject("Inbox");
+const inbox = projectManager.projects[0];
 
-console.log("After trying to remove Inbox:", projectManager.projects.map((project) => project.name));
+projectManager.removeProject(inbox.id);
+
+console.log(
+  "After trying to remove Inbox:",
+  projectManager.projects.map((project) => project.name)
+);
