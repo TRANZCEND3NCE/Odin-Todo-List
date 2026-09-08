@@ -1,22 +1,12 @@
 import "./styles.css";
 
-import { createTodo } from "./todo.js";
 import { createProjectManager } from "./projectManager.js";
+import { renderProjects } from "./dom.js";
 
 const projectManager = createProjectManager();
 
-const work = projectManager.addProject("Work");
-const personal = projectManager.addProject("Personal");
+projectManager.addProject("Work");
+projectManager.addProject("Personal");
+projectManager.addProject("Shopping");
 
-const duplicate = projectManager.addProject("work");
-const empty = projectManager.addProject("   ");
-const spaced = projectManager.addProject("   Shopping    ");
-
-console.log(
-	"Projects:",
-	projectManager.projects.map((project) => project.name)
-);
-
-console.log("Duplicate result:", duplicate);
-console.log("Empty result:", empty);
-console.log("Spaced name:", spaced.name);
+renderProjects(projectManager.projects);
