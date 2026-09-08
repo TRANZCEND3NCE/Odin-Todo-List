@@ -38,6 +38,11 @@ button {
   cursor: pointer;
 }
 
+#project-list button.active {
+	font-weight: bold;
+	background-color: #ddd;
+}
+
 #project-title {
 	margin-top: 0;
 }

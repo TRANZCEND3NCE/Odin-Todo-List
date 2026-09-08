@@ -6,6 +6,8 @@ function createProjectManager() {
 	const inbox = createProject("Inbox");
 	projects.push(inbox);
 
+	let selectedProjectId = inbox.id;
+
 	function addProject(name) {
 		const trimmedName = name.trim();
 
@@ -26,6 +28,26 @@ function createProjectManager() {
 		return project;
 	}
 
+	function getProject (projectId) {
+		return projects.find((project) => project.id === projectId);
+	}
+
+	function getSelectedProject() {
+		return getProject(selectedProjectId);
+	}
+
+	function setSelectedProject(projectId) {
+		const project = getProject(projectId);
+
+		if (!project) {
+			return null;
+		}
+
+		selectedProjectId = projectId;
+
+		return project;
+	}
+
 	function removeProject(projectName) {
 		if (projectName === "Inbox") {
 			return;
@@ -41,6 +63,9 @@ function createProjectManager() {
 	return {
 		projects,
 		addProject,
+		getProject,
+		getSelectedProject,
+		setSelectedProject,
 		removeProject,
 	};
 }
