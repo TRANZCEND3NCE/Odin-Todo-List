@@ -25,6 +25,42 @@ function renderSelectedProject(project) {
 	projectTitle.textContent = project.name;
 }
 
+function renderTodos(todos) {
+	const todoList = document.querySelector("#todo-list");
+
+	todoList.textContent = "";
+
+	todos.forEach((todo) => {
+		const todoItem = document.createElement("div");
+		todoItem.classList.add("todo-item");
+		todoItem.dataset.todoId = todo.id;
+
+		const todoTitle = document.createElement("span");
+		todoTitle.textContent = todo.title;
+
+		const todoDueDate = document.createElement("span");
+		todoDueDate.textContent = todo.dueDate;
+
+		const todoPriority = document.createElement("span");
+		todoPriority.textContent = todo.priority;
+		todoPriority.classList.add(
+			"todo-priority",
+			`priority-${todo.priority}`
+		);
+
+		const todoStatus = document.createElement("span");
+		todoStatus.textContent = todo.completed ? "Complete" : "Incomplete";
+
+
+		todoItem.appendChild(todoTitle);
+		todoItem.appendChild(todoDueDate);
+		todoItem.appendChild(todoPriority);
+		todoItem.appendChild(todoStatus);
+
+		todoList.appendChild(todoItem);
+	});
+}
+
 function setupProjectSelection(projectManager) {
 	const projectList = document.querySelector("#project-list");
 
@@ -52,7 +88,8 @@ function setupProjectSelection(projectManager) {
 		projectButton.classList.add("active");
 
 		renderSelectedProject(project);
+		renderTodos(project.todos);
 	});
 }
 
-export { renderProjects, setupProjectSelection, renderSelectedProject };
+export { renderProjects, setupProjectSelection, renderTodos, renderSelectedProject };
