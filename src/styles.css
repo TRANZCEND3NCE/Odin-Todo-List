@@ -84,3 +84,28 @@ button {
 .priority-low {
 	font-weight: normal;
 }
+
+#todo-form {
+	display: grid;
+	gap: 0.75rem;
+	max-width: 700px;
+	margin-bottom: 2rem;
+}
+
+.form-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+#todo-form input,
+#todo-form textarea,
+#todo-form select,
+#todo-form button {
+	padding: 0.75rem;
+	font: inherit;
+}
+
+#todo-form textarea {
+	resize: vertical;
+}

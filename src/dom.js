@@ -92,4 +92,37 @@ function setupProjectSelection(projectManager) {
 	});
 }
 
-export { renderProjects, setupProjectSelection, renderTodos, renderSelectedProject };
+function setupTodoForm(onTodoSubmit) {
+	const todoForm = document.querySelector("#todo-form");
+
+	todoForm.addEventListener("submit", (e) => {
+		e.preventDefault();
+
+		const title =document.querySelector("#todo-title")
+		.value
+		.trim();
+
+		const description = document.querySelector("#todo-description")
+		.value
+		.trim();
+
+		const dueDate = document.querySelector("#todo-due-date").value;
+
+		const priority = document.querySelector("#todo-priority").value;
+
+		if (!title || !description || !dueDate) {
+			return;
+		}
+
+		onTodoSubmit({
+			title,
+			description,
+			dueDate,
+			priority,
+		});
+
+		todoForm.reset();
+	});
+}
+
+export { renderProjects, setupProjectSelection, renderTodos, renderSelectedProject, setupTodoForm };
