@@ -35,6 +35,15 @@ function renderTodos(todos) {
 		todoItem.classList.add("todo-item");
 		todoItem.dataset.todoId = todo.id;
 
+		if (todo.completed) {
+			todoItem.classList.add("completed");
+		}
+
+		const todoCheckbox = document.createElement("input");
+		todoCheckbox.type = "checkbox";
+		todoCheckbox.classList.add("todo-checkbox");
+		todoCheckbox.checked = todo.completed;
+
 		const todoTitle = document.createElement("span");
 		todoTitle.textContent = todo.title;
 
@@ -51,7 +60,7 @@ function renderTodos(todos) {
 		const todoStatus = document.createElement("span");
 		todoStatus.textContent = todo.completed ? "Complete" : "Incomplete";
 
-
+		todoItem.appendChild(todoCheckbox);
 		todoItem.appendChild(todoTitle);
 		todoItem.appendChild(todoDueDate);
 		todoItem.appendChild(todoPriority);
@@ -125,4 +134,33 @@ function setupTodoForm(onTodoSubmit) {
 	});
 }
 
-export { renderProjects, setupProjectSelection, renderTodos, renderSelectedProject, setupTodoForm };
+function setupTodoCompletion(projectManager) {
+	const todoList = document.querySelector("#todo-list");
+
+	todoList.addEventListener("change", (e) => {
+		if (!e.target.classList.contains("todo-checkbox")) {
+			return;
+		}
+
+		const todoItem = e.target.closest(".todo-item");
+
+		if (!todoItem) {
+			return;
+		}
+
+		const todoId = todoItem.dataset.todoId;
+
+		const project = projectManager.getSelectedProject();
+		const todo = project.getTodo(todoId);
+
+		if (!todo) {
+			return;
+		}
+
+		todo.toggleComplete();
+
+		renderTodos(project.todos);
+	});
+}
+
+export { renderProjects, setupProjectSelection, renderTodos, renderSelectedProject, setupTodoForm, setupTodoCompletion };

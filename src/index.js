@@ -2,7 +2,7 @@ import "./styles.css";
 
 import { createTodo } from "./todo.js";
 import { createProjectManager } from "./projectManager.js";
-import { renderProjects, renderSelectedProject, renderTodos, setupProjectSelection, setupTodoForm } from "./dom.js";
+import { renderProjects, renderSelectedProject, renderTodos, setupProjectSelection, setupTodoForm, setupTodoCompletion } from "./dom.js";
 
 const projectManager = createProjectManager();
 
@@ -18,6 +18,7 @@ renderSelectedProject(selectedProject);
 renderTodos(selectedProject.todos);
 
 setupProjectSelection(projectManager);
+setupTodoCompletion(projectManager);
 
 setupTodoForm((todoData) => {
 	const project = projectManager.getSelectedProject();
