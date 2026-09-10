@@ -30,6 +30,17 @@ function renderTodos(todos) {
 
 	todoList.textContent = "";
 
+	if (todos.length === 0) {
+		const emptyMessage = document.createElement("p");
+
+		emptyMessage.textContent = "No todos yet.";
+		emptyMessage.classList.add("empty-message");
+
+		todoList.appendChild(emptyMessage);
+
+		return;
+	}
+
 	todos.forEach((todo) => {
 		const todoItem = document.createElement("div");
 		todoItem.classList.add("todo-item");
@@ -60,11 +71,17 @@ function renderTodos(todos) {
 		const todoStatus = document.createElement("span");
 		todoStatus.textContent = todo.completed ? "Complete" : "Incomplete";
 
+		const deleteButton = document.createElement("button");
+		deleteButton.type = "button";
+		deleteButton.textContent = "Delete";
+		deleteButton.classList.add("delete-todo");
+
 		todoItem.appendChild(todoCheckbox);
 		todoItem.appendChild(todoTitle);
 		todoItem.appendChild(todoDueDate);
 		todoItem.appendChild(todoPriority);
 		todoItem.appendChild(todoStatus);
+		todoItem.appendChild(deleteButton);
 
 		todoList.appendChild(todoItem);
 	});
@@ -163,4 +180,28 @@ function setupTodoCompletion(projectManager) {
 	});
 }
 
-export { renderProjects, setupProjectSelection, renderTodos, renderSelectedProject, setupTodoForm, setupTodoCompletion };
+function setupTodoDeletion(projectManager) {
+	const todoList = document.querySelector("#todo-list");
+
+	todoList.addEventListener("click", (e) => {
+		if (!e.target.classList.contains("delete-todo")) {
+			return;
+		}
+
+		const todoItem = e.target.closest(".todo-item");
+
+		if (!todoItem) {
+			return;
+		}
+
+		const todoId = todoItem.dataset.todoId;
+
+		const project = projectManager.getSelectedProject();
+
+		project.removeTodo(todoId);
+
+		renderTodos(project.todos);
+	})
+}
+
+export { renderProjects, setupProjectSelection, renderTodos, renderSelectedProject, setupTodoForm, setupTodoCompletion, setupTodoDeletion };
