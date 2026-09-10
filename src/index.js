@@ -2,7 +2,7 @@ import "./styles.css";
 
 import { createTodo } from "./todo.js";
 import { createProjectManager } from "./projectManager.js";
-import { renderProjects, renderSelectedProject, renderTodos, setupProjectSelection, setupTodoForm, setupTodoCompletion, setupTodoDeletion } from "./dom.js";
+import { renderProjects, renderSelectedProject, renderTodos, setupProjectSelection, setupTodoForm, setupTodoCompletion, setupTodoDeletion, setupTodoEditing } from "./dom.js";
 
 const projectManager = createProjectManager();
 
@@ -20,9 +20,29 @@ renderTodos(selectedProject.todos);
 setupProjectSelection(projectManager);
 setupTodoCompletion(projectManager);
 setupTodoDeletion(projectManager);
+setupTodoEditing(projectManager);
 
-setupTodoForm((todoData) => {
+setupTodoForm((todoData, editingTodoId) => {
 	const project = projectManager.getSelectedProject();
+
+	if (editingTodoId) {
+		const todo = project.getTodo(editingTodoId);
+
+		if (!todo) {
+			return;
+		}
+
+		todo.updateDetails(
+			todoData.title,
+			todoData.description,
+			todoData.dueDate,
+			todoData.priority
+		);
+
+		renderTodos(project.todos);
+
+		return;
+	}
 
 	const todo = createTodo(
 		todoData.title,

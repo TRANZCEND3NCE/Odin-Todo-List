@@ -59,7 +59,7 @@ button {
 
 .todo-item {
 	display: grid;
-	grid-template-columns: auto 1fr auto auto auto auto;
+	grid-template-columns: auto 1fr auto auto auto auto auto;
 	align-items: center;
 	gap: 1rem;
 	padding: 1rem;
@@ -118,6 +118,7 @@ button {
 	resize: vertical;
 }
 
+.edit-todo,
 .delete-todo {
 	padding: 0.5rem 0.75rem;
 	cursor: pointer;

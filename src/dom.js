@@ -71,6 +71,11 @@ function renderTodos(todos) {
 		const todoStatus = document.createElement("span");
 		todoStatus.textContent = todo.completed ? "Complete" : "Incomplete";
 
+		const editButton = document.createElement("button");
+		editButton.type = "button";
+		editButton.textContent = "Edit";
+		editButton.classList.add("edit-todo");
+
 		const deleteButton = document.createElement("button");
 		deleteButton.type = "button";
 		deleteButton.textContent = "Delete";
@@ -81,6 +86,7 @@ function renderTodos(todos) {
 		todoItem.appendChild(todoDueDate);
 		todoItem.appendChild(todoPriority);
 		todoItem.appendChild(todoStatus);
+		todoItem.appendChild(editButton);
 		todoItem.appendChild(deleteButton);
 
 		todoList.appendChild(todoItem);
@@ -96,6 +102,8 @@ function setupProjectSelection(projectManager) {
 		if (!projectButton) {
 			return;
 		}
+
+		resetTodoForm();
 
 		const projectId = projectButton.dataset.projectId;
 
@@ -124,7 +132,7 @@ function setupTodoForm(onTodoSubmit) {
 	todoForm.addEventListener("submit", (e) => {
 		e.preventDefault();
 
-		const title =document.querySelector("#todo-title")
+		const title = document.querySelector("#todo-title")
 		.value
 		.trim();
 
@@ -140,14 +148,16 @@ function setupTodoForm(onTodoSubmit) {
 			return;
 		}
 
+		const editingTodoId = todoForm.dataset.editingTodoId || null;
+
 		onTodoSubmit({
 			title,
 			description,
 			dueDate,
 			priority,
-		});
+		}, editingTodoId);
 
-		todoForm.reset();
+		resetTodoForm();
 	});
 }
 
@@ -204,4 +214,57 @@ function setupTodoDeletion(projectManager) {
 	})
 }
 
-export { renderProjects, setupProjectSelection, renderTodos, renderSelectedProject, setupTodoForm, setupTodoCompletion, setupTodoDeletion };
+function resetTodoForm() {
+	const todoForm = document.querySelector("#todo-form");
+	const submitButton = todoForm.querySelector('button[type="submit"]');
+
+	todoForm.reset();
+
+	delete todoForm.dataset.editingTodoId;
+
+	submitButton.textContent = "Add Todo";
+}
+
+function setupTodoEditing(projectManager) {
+	const todoList = document.querySelector("#todo-list");
+	const todoForm = document.querySelector("#todo-form");
+
+	const titleInput = document.querySelector("#todo-title");
+	const descriptionInput = document.querySelector("#todo-description");
+	const dueDateInput = document.querySelector("#todo-due-date");
+	const priorityInput = document.querySelector("#todo-priority");
+
+	const submitButton = todoForm.querySelector('button[type="submit"]');
+
+	todoList.addEventListener("click", (e) => {
+		if (!e.target.classList.contains("edit-todo")) {
+			return;
+		}
+
+		const todoItem = e.target.closest(".todo-item");
+
+		if (!todoItem) {
+			return;
+		}
+
+		const todoId = todoItem.dataset.todoId;
+
+		const project = projectManager.getSelectedProject();
+		const todo = project.getTodo(todoId);
+
+		if (!todo) {
+			return;
+		}
+
+		titleInput.value = todo.title;
+		descriptionInput.value = todo.description;
+		dueDateInput.value = todo.dueDate;
+		priorityInput.value = todo.priority;
+
+		todoForm.dataset.editingTodoId = todo.id;
+
+		submitButton.textContent = "Save Changes";
+	})
+}
+
+export { renderProjects, setupProjectSelection, renderTodos, renderSelectedProject, setupTodoForm, setupTodoCompletion, setupTodoDeletion, setupTodoEditing };
