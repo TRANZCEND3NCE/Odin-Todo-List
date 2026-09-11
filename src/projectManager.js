@@ -48,16 +48,24 @@ function createProjectManager() {
 		return project;
 	}
 
-	function removeProject(projectName) {
-		if (projectName === "Inbox") {
-			return;
+	function removeProject(projectId) {
+		if (projectId === inbox.id) {
+			return null;
 		}
 
-		const projectIndex = projects.findIndex((project) => project.name === projectName);
+		const projectIndex = projects.findIndex((project) => project.id === projectId);
 
-		if (projectIndex !== -1) {
-			projects.splice(projectIndex, 1);
+		if (projectIndex === -1) {
+			return null;
 		}
+
+		const [removedProject] = projects.splice(projectIndex, 1);
+
+		if (selectedProjectId === projectId) {
+			selectedProjectId = inbox.id;
+		}
+
+		return removedProject;
 	}
 
 	return {

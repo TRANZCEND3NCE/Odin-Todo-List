@@ -32,10 +32,21 @@ button {
   gap: 0.5rem;
 }
 
-#project-list button {
-  padding: 0.75rem;
-  text-align: left;
-  cursor: pointer;
+.project-item {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: 0.5rem;
+}
+
+.project-button {
+	padding: 0.75rem;
+	text-align: left;
+	cursor: pointer;
+}
+
+.delete-project {
+	padding: 0.5rem;
+	cursor: pointer;
 }
 
 #project-list button.active {

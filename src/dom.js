@@ -5,9 +5,13 @@ function renderProjects(projects, selectedProjectId) {
 
 	projectList.textContent = "";
 
-	projects.forEach((project) => {
-		const projectButton = document.createElement("button");
+	projects.forEach((project, index) => {
+		const projectItem = document.createElement("div");
+		projectItem.classList.add("project-item");
 
+		const projectButton = document.createElement("button");
+		projectButton.type = "button";
+		projectButton.classList.add("project-button");
 		projectButton.textContent = project.name;
 		projectButton.dataset.projectId = project.id;
 
@@ -15,7 +19,20 @@ function renderProjects(projects, selectedProjectId) {
 			projectButton.classList.add("active");
 		}
 
-		projectList.appendChild(projectButton);
+		projectItem.appendChild(projectButton);
+
+		if (index !== 0) {
+			const deleteButton = document.createElement("button");
+
+			deleteButton.type = "button";
+			deleteButton.textContent = "Delete";
+			deleteButton.classList.add("delete-project");
+			deleteButton.dataset.projectId = project.id;
+
+			projectItem.appendChild(deleteButton);
+		}
+
+		projectList.appendChild(projectItem);
 	});
 }
 
@@ -103,7 +120,7 @@ function setupProjectSelection(projectManager) {
 	const projectList = document.querySelector("#project-list");
 
 	projectList.addEventListener("click", (e) => {
-		const projectButton = e.target.closest("button");
+		const projectButton = e.target.closest(".project-button");
 
 		if (!projectButton) {
 			return;
@@ -144,6 +161,34 @@ function setupProjectForm(onProjectSubmit) {
 		onProjectSubmit(projectName);
 
 		projectForm.reset();
+	});
+}
+
+function setupProjectDeletion(projectManager) {
+	const projectList = document.querySelector("#project-list");
+
+	projectList.addEventListener("click", (e) => {
+		const deleteButton = e.target.closest(".delete-project");
+
+		if (!deleteButton) {
+			return;
+		}
+
+		const projectId = deleteButton.dataset.projectId;
+		const removedProject = projectManager.removeProject(projectId);
+
+		if (!removedProject) {
+			return;
+		}
+
+		resetTodoForm();
+
+		const selectedProject = projectManager.getSelectedProject();
+
+		renderProjects(projectManager.projects, selectedProject.id);
+
+		renderSelectedProject(selectedProject);
+		renderTodos(selectedProject.todos);
 	});
 }
 
@@ -295,6 +340,7 @@ export {
 	 renderProjectError,
 	 renderSelectedProject,
 	 setupProjectForm,
+	 setupProjectDeletion,
 	 setupTodoForm,
 	 setupTodoCompletion,
 	 setupTodoDeletion,

@@ -9,6 +9,7 @@ import {
 	renderProjectError,
 	setupProjectSelection,
 	setupProjectForm,
+	setupProjectDeletion,
 	setupTodoForm,
 	setupTodoCompletion,
 	setupTodoDeletion,
@@ -25,6 +26,8 @@ renderSelectedProject(selectedProject);
 renderTodos(selectedProject.todos);
 
 setupProjectSelection(projectManager);
+setupProjectDeletion(projectManager);
+
 setupTodoCompletion(projectManager);
 setupTodoDeletion(projectManager);
 setupTodoEditing(projectManager);
