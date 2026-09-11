@@ -93,6 +93,12 @@ function renderTodos(todos) {
 	});
 }
 
+function renderProjectError(message) {
+	const projectError = document.querySelector("#project-error");
+
+	projectError.textContent = message;
+}
+
 function setupProjectSelection(projectManager) {
 	const projectList = document.querySelector("#project-list");
 
@@ -123,6 +129,21 @@ function setupProjectSelection(projectManager) {
 
 		renderSelectedProject(project);
 		renderTodos(project.todos);
+	});
+}
+
+function setupProjectForm(onProjectSubmit) {
+	const projectForm = document.querySelector("#project-form");
+	const projectNameInput = document.querySelector("#project-name");
+
+	projectForm.addEventListener("submit", (e) => {
+		e.preventDefault();
+
+		const projectName = projectNameInput.value;
+
+		onProjectSubmit(projectName);
+
+		projectForm.reset();
 	});
 }
 
@@ -267,4 +288,15 @@ function setupTodoEditing(projectManager) {
 	})
 }
 
-export { renderProjects, setupProjectSelection, renderTodos, renderSelectedProject, setupTodoForm, setupTodoCompletion, setupTodoDeletion, setupTodoEditing };
+export { 
+	 renderProjects, 
+	 setupProjectSelection,
+	 renderTodos,
+	 renderProjectError,
+	 renderSelectedProject,
+	 setupProjectForm,
+	 setupTodoForm,
+	 setupTodoCompletion,
+	 setupTodoDeletion,
+	 setupTodoEditing
+ };

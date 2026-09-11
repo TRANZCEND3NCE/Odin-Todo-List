@@ -2,13 +2,20 @@ import "./styles.css";
 
 import { createTodo } from "./todo.js";
 import { createProjectManager } from "./projectManager.js";
-import { renderProjects, renderSelectedProject, renderTodos, setupProjectSelection, setupTodoForm, setupTodoCompletion, setupTodoDeletion, setupTodoEditing } from "./dom.js";
+import {
+	renderProjects,
+	renderSelectedProject,
+	renderTodos,
+	renderProjectError,
+	setupProjectSelection,
+	setupProjectForm,
+	setupTodoForm,
+	setupTodoCompletion,
+	setupTodoDeletion,
+	setupTodoEditing
+} from "./dom.js";
 
 const projectManager = createProjectManager();
-
-projectManager.addProject("Work");
-projectManager.addProject("Personal");
-projectManager.addProject("Shopping");
 
 const selectedProject = projectManager.getSelectedProject();
 
@@ -21,6 +28,24 @@ setupProjectSelection(projectManager);
 setupTodoCompletion(projectManager);
 setupTodoDeletion(projectManager);
 setupTodoEditing(projectManager);
+
+setupProjectForm((projectName) => {
+	const project = projectManager.addProject(projectName);
+
+	if (!project) {
+		renderProjectError(
+			"Please enter a unique project name."
+		);
+
+		return;
+	}
+
+	renderProjectError("");
+
+	const selectedProject = projectManager.getSelectedProject();
+
+	renderProjects(projectManager.projects, selectedProject.id);
+});
 
 setupTodoForm((todoData, editingTodoId) => {
 	const project = projectManager.getSelectedProject();
