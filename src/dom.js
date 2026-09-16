@@ -1,4 +1,4 @@
-
+import { format, parseISO} from "date-fns";
 
 function renderProjects(projects, selectedProjectId) {
 	const projectList = document.querySelector("#project-list");
@@ -76,7 +76,10 @@ function renderTodos(todos) {
 		todoTitle.textContent = todo.title;
 
 		const todoDueDate = document.createElement("span");
-		todoDueDate.textContent = todo.dueDate;
+		todoDueDate.textContent = format(
+			parseISO(todo.dueDate),
+			"MMM d, yyyy"
+		);
 
 		const todoPriority = document.createElement("span");
 		todoPriority.textContent = todo.priority;
