@@ -164,7 +164,7 @@ function setupProjectForm(onProjectSubmit) {
 	});
 }
 
-function setupProjectDeletion(projectManager) {
+function setupProjectDeletion(projectManager, onDataChange) {
 	const projectList = document.querySelector("#project-list");
 
 	projectList.addEventListener("click", (e) => {
@@ -180,6 +180,8 @@ function setupProjectDeletion(projectManager) {
 		if (!removedProject) {
 			return;
 		}
+
+		onDataChange();
 
 		resetTodoForm();
 
@@ -227,7 +229,7 @@ function setupTodoForm(onTodoSubmit) {
 	});
 }
 
-function setupTodoCompletion(projectManager) {
+function setupTodoCompletion(projectManager, onDataChange) {
 	const todoList = document.querySelector("#todo-list");
 
 	todoList.addEventListener("change", (e) => {
@@ -252,11 +254,13 @@ function setupTodoCompletion(projectManager) {
 
 		todo.toggleComplete();
 
+		onDataChange();
+
 		renderTodos(project.todos);
 	});
 }
 
-function setupTodoDeletion(projectManager) {
+function setupTodoDeletion(projectManager, onDataChange) {
 	const todoList = document.querySelector("#todo-list");
 
 	todoList.addEventListener("click", (e) => {
@@ -275,6 +279,8 @@ function setupTodoDeletion(projectManager) {
 		const project = projectManager.getSelectedProject();
 
 		project.removeTodo(todoId);
+
+		onDataChange();
 
 		renderTodos(project.todos);
 	})

@@ -1,13 +1,20 @@
 
 
-function createTodo(title, description, dueDate, priority) {
+function createTodo(
+	title,
+	description,
+	dueDate,
+	priority,
+	completed = false,
+	id = crypto.randomUUID()
+) {
 	return {
-		id: crypto.randomUUID(),
+		id,
 		title,
 		description,
 		dueDate,
 		priority,
-		completed: false,
+		completed,
 
 		toggleComplete() {
 			this.completed = !this.completed;

@@ -1,6 +1,9 @@
 
 
-function createProject(name) {
+function createProject(
+	name,
+	id = crypto.randomUUID()
+) {
 	const todos = [];
 
 	function addTodo(todo) {
@@ -20,7 +23,7 @@ function createProject(name) {
 	}
 
 	return {
-		id: crypto.randomUUID(),
+		id,
 		name,
 		todos,
 		addTodo,

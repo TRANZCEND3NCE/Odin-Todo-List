@@ -1,10 +1,12 @@
 import { createProject } from "./project.js";
 
-function createProjectManager() {
-	const projects = [];
+function createProjectManager(savedProjects = null) {
+	const projects = 
+		savedProjects && savedProjects.length > 0
+			? savedProjects
+			: [createProject("inbox")];
 
-	const inbox = createProject("Inbox");
-	projects.push(inbox);
+	const inbox = projects[0];
 
 	let selectedProjectId = inbox.id;
 

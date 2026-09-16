@@ -1,5 +1,6 @@
 import "./styles.css";
 
+import { saveProjects, loadProjects } from "./storage.js";
 import { createTodo } from "./todo.js";
 import { createProjectManager } from "./projectManager.js";
 import {
@@ -16,7 +17,17 @@ import {
 	setupTodoEditing
 } from "./dom.js";
 
-const projectManager = createProjectManager();
+const savedProjects = loadProjects();
+
+const projectManager = createProjectManager(savedProjects);
+
+function saveData() {
+	saveProjects(projectManager.projects);
+}
+
+if (!savedProjects || savedProjects.length === 0) {
+	saveData();
+}
 
 const selectedProject = projectManager.getSelectedProject();
 
@@ -26,10 +37,10 @@ renderSelectedProject(selectedProject);
 renderTodos(selectedProject.todos);
 
 setupProjectSelection(projectManager);
-setupProjectDeletion(projectManager);
+setupProjectDeletion(projectManager, saveData);
 
-setupTodoCompletion(projectManager);
-setupTodoDeletion(projectManager);
+setupTodoCompletion(projectManager, saveData);
+setupTodoDeletion(projectManager, saveData);
 setupTodoEditing(projectManager);
 
 setupProjectForm((projectName) => {
@@ -44,6 +55,8 @@ setupProjectForm((projectName) => {
 	}
 
 	renderProjectError("");
+
+	saveData();
 
 	const selectedProject = projectManager.getSelectedProject();
 
@@ -67,6 +80,8 @@ setupTodoForm((todoData, editingTodoId) => {
 			todoData.priority
 		);
 
+		saveData();
+
 		renderTodos(project.todos);
 
 		return;
@@ -80,6 +95,8 @@ setupTodoForm((todoData, editingTodoId) => {
 	);
 
 	project.addTodo(todo);
+
+	saveData();
 
 	renderTodos(project.todos);
 });
