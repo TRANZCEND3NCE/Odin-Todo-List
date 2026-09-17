@@ -180,11 +180,13 @@ button {
 	display: flex;
 	flex-direction: column;
 	gap: 0.75rem;
+	/* width: 100%; */
+	max-width: 900px;
 }
 
 .todo-item {
 	display: grid;
-	grid-template-columns: auto minmax(0, 1fr) auto auto auto auto auto;
+	grid-template-columns: auto minmax(0, 1fr) auto auto auto auto auto auto;
 	align-items: center;
 	gap: 1rem;
 	padding: 1rem 1.25rem;
@@ -351,4 +353,109 @@ button {
 .empty-message {
 	margin-top: 1rem;
 	font-style: italic;
+}
+
+.toggle-details {
+	padding: 0.5rem 0.75rem;
+	border-radius: var(--radius-md);
+	background-color: transparent;
+	color: var(--text-secondary);
+	font-weight: 500;
+	cursor: pointer;
+	transition: 
+		background-color 150ms ease,
+		color 150ms ease;
+}
+
+.toggle-details:hover {
+	background-color: #f3f4f6;
+	color: var(--text-primary);
+}
+
+.todo-description {
+	grid-column: 2 / -1;
+	margin: 0.25rem 0 0;
+	padding-top: 0.75rem;
+	border-top: 1px solid var(--border);
+	color: var(--text-secondary);
+	line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+	#app {
+		grid-template-columns: 1fr;
+	}
+
+	.sidebar {
+		padding: 1.5rem;
+	}
+
+	.sidebar h1 {
+		margin-bottom: 1.5rem;
+	}
+
+	.main-content {
+		padding: 1.5rem;
+	}
+
+	.project-button {
+		white-space: normal;
+	}
+
+	#todo-form {
+		grid-template-columns: 1fr;
+	}
+
+	.form-group:nth-child(1),
+	.form-group:nth-child(2),
+	#todo-form button[type="submit"] {
+		grid-column: auto;
+	}
+
+	.todo-item {
+		grid-template-columns: auto minmax(0, 1fr) auto;
+		gap: 0.75rem;
+	}
+
+	.todo-checkbox {
+		grid-column: 1;
+		grid-row: 1;
+	}
+
+	.todo-title {
+		grid-column: 2 / -1;
+		grid-row: 1;
+		font-weight: 600;
+	}
+
+	.todo-due-date {
+		grid-column: 2 / -1;
+	}
+
+	.todo-priority {
+		grid-column: 2;
+		justify-self: start;
+	}
+
+	.todo-status {
+		grid-column: 3;
+	}
+
+	.edit-todo {
+		grid-column: 2;
+		justify-self: start;
+	}
+
+	.delete-todo {
+		grid-column: 3;
+	}
+
+	.toggle-details {
+		grid-column: 2 / -1;
+		justify-self: start;
+	}
+
+	.todo-description {
+		grid-column: 2 / -1;
+	}
 }

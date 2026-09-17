@@ -73,23 +73,36 @@ function renderTodos(todos) {
 		todoCheckbox.checked = todo.completed;
 
 		const todoTitle = document.createElement("span");
+		todoTitle.classList.add("todo-title");
 		todoTitle.textContent = todo.title;
 
 		const todoDueDate = document.createElement("span");
+		todoDueDate.classList.add("todo-due-date");
 		todoDueDate.textContent = format(
 			parseISO(todo.dueDate),
 			"MMM d, yyyy"
 		);
 
 		const todoPriority = document.createElement("span");
-		todoPriority.textContent = todo.priority;
 		todoPriority.classList.add(
 			"todo-priority",
 			`priority-${todo.priority}`
 		);
+		todoPriority.textContent = todo.priority;
 
 		const todoStatus = document.createElement("span");
+		todoStatus.classList.add("todo-status");
 		todoStatus.textContent = todo.completed ? "Complete" : "Incomplete";
+
+		const detailsButton = document.createElement("button");
+		detailsButton.type = "button";
+		detailsButton.classList.add("toggle-details");
+		detailsButton.textContent = "View Details";
+
+		const todoDescription = document.createElement("p");
+		todoDescription.classList.add("todo-description");
+		todoDescription.textContent = todo.description;
+		todoDescription.hidden = true;
 
 		const editButton = document.createElement("button");
 		editButton.type = "button";
@@ -106,8 +119,10 @@ function renderTodos(todos) {
 		todoItem.appendChild(todoDueDate);
 		todoItem.appendChild(todoPriority);
 		todoItem.appendChild(todoStatus);
+		todoItem.appendChild(detailsButton);
 		todoItem.appendChild(editButton);
 		todoItem.appendChild(deleteButton);
+		todoItem.appendChild(todoDescription);
 
 		todoList.appendChild(todoItem);
 	});
@@ -139,7 +154,7 @@ function setupProjectSelection(projectManager) {
 			return;
 		}
 
-		const projectButtons = projectList.querySelectorAll("button");
+		const projectButtons = projectList.querySelectorAll(".project-button");
 
 		projectButtons.forEach((button) => {
 			button.classList.remove("active");
@@ -289,6 +304,26 @@ function setupTodoDeletion(projectManager, onDataChange) {
 	})
 }
 
+function setupTodoDetails() {
+	const todoList = document.querySelector("#todo-list");
+
+	todoList.addEventListener("click", (e) => {
+		const detailsButton = e.target.closest(".toggle-details");
+
+		if (!detailsButton) {
+			return;
+		}
+
+		const todoItem = detailsButton.closest(".todo-item");
+
+		const todoDescription = todoItem.querySelector(".todo-description");
+
+		todoDescription.hidden = !todoDescription.hidden;
+
+		detailsButton.textContent = todoDescription.hidden ? "View Details" : "Hide Details";
+	});
+}
+
 function resetTodoForm() {
 	const todoForm = document.querySelector("#todo-form");
 	const submitButton = todoForm.querySelector('button[type="submit"]');
@@ -353,5 +388,6 @@ export {
 	 setupTodoForm,
 	 setupTodoCompletion,
 	 setupTodoDeletion,
-	 setupTodoEditing
+	 setupTodoEditing,
+	 setupTodoDetails
  };

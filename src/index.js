@@ -14,7 +14,8 @@ import {
 	setupTodoForm,
 	setupTodoCompletion,
 	setupTodoDeletion,
-	setupTodoEditing
+	setupTodoEditing,
+	setupTodoDetails
 } from "./dom.js";
 
 const savedProjects = loadProjects();
@@ -42,6 +43,7 @@ setupProjectDeletion(projectManager, saveData);
 setupTodoCompletion(projectManager, saveData);
 setupTodoDeletion(projectManager, saveData);
 setupTodoEditing(projectManager);
+setupTodoDetails();
 
 setupProjectForm((projectName) => {
 	const project = projectManager.addProject(projectName);
