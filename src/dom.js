@@ -1,4 +1,4 @@
-import { format, parseISO} from "date-fns";
+import { format, parseISO } from "date-fns";
 
 function renderProjects(projects, selectedProjectId) {
 	const projectList = document.querySelector("#project-list");
@@ -301,7 +301,7 @@ function setupTodoDeletion(projectManager, onDataChange) {
 		onDataChange();
 
 		renderTodos(project.todos);
-	})
+	});
 }
 
 function setupTodoDetails() {
@@ -374,7 +374,7 @@ function setupTodoEditing(projectManager) {
 		todoForm.dataset.editingTodoId = todo.id;
 
 		submitButton.textContent = "Save Changes";
-	})
+	});
 }
 
 export { 

@@ -17,13 +17,13 @@ function loadProjects() {
 
 	const parsedProjects = JSON.parse(savedProjects);
 
-	return parsedProjects.map((savedProjects) => {
+	return parsedProjects.map((savedProject) => {
 		const project = createProject(
-			savedProjects.name,
-			savedProjects.id
+			savedProject.name,
+			savedProject.id
 		);
 
-		savedProjects.todos.forEach((savedTodo) => {
+		savedProject.todos.forEach((savedTodo) => {
 			const todo = createTodo(
 				savedTodo.title,
 				savedTodo.description,

@@ -4,7 +4,7 @@ function createProjectManager(savedProjects = null) {
 	const projects = 
 		savedProjects && savedProjects.length > 0
 			? savedProjects
-			: [createProject("inbox")];
+			: [createProject("Inbox")];
 
 	const inbox = projects[0];
 

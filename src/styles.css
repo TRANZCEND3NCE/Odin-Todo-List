@@ -180,7 +180,6 @@ button {
 	display: flex;
 	flex-direction: column;
 	gap: 0.75rem;
-	/* width: 100%; */
 	max-width: 900px;
 }
 
@@ -208,7 +207,7 @@ button {
 	background-color: #f9fafb;
 }
 
-.todo-item.completed span:first-of-type {
+.todo-item.completed .todo-title {
 	text-decoration: line-through;
 	color: var(--text-secondary);
 }
@@ -441,21 +440,25 @@ button {
 		grid-column: 3;
 	}
 
-	.edit-todo {
-		grid-column: 2;
-		justify-self: start;
-	}
-
-	.delete-todo {
-		grid-column: 3;
-	}
-
 	.toggle-details {
 		grid-column: 2 / -1;
 		justify-self: start;
+		order: 1;
 	}
 
 	.todo-description {
 		grid-column: 2 / -1;
+		order: 2;
+	}
+
+	.edit-todo {
+		grid-column: 2;
+		justify-self: start;
+		order: 3;
+	}
+
+	.delete-todo {
+		grid-column: 3;
+		order: 3;
 	}
 }
