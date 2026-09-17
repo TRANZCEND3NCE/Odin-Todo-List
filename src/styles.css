@@ -242,6 +242,27 @@ button {
 	color: #166534;
 }
 
+#show-todo-form {
+	margin-bottom: 1.5rem;
+	padding: 0.8rem 1.25rem;
+	border-radius: var(--radius-md);
+	background-color: var(--accent);
+	color: white;
+	font-weight: 600;
+	cursor: pointer;
+	transition:
+		background-color 150ms ease,
+		transform 100ms ease;
+}
+
+#show-todo-form:hover {
+	background-color: var(--accent-hover);
+}
+
+#show-todo-form:active {
+	transform: scale(0.98);
+}
+
 #todo-form {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -299,16 +320,20 @@ button {
 	min-height: 100px;
 }
 
-#todo-form button[type="submit"] {
+.todo-form-actions {
 	grid-column: 1 / -1;
-	align-self: end;
+	display: flex;
+	gap: 0.75rem;
+}
+
+#todo-form button[type="submit"] {
 	padding: 0.8rem 1.25rem;
 	border-radius: var(--radius-md);
 	background-color: var(--accent);
 	color: white;
 	font-weight: 600;
 	cursor: pointer;
-	transition: 
+	transition:
 		background-color 150ms ease,
 		transform 100ms ease;
 }
@@ -319,6 +344,24 @@ button {
 
 #todo-form button[type="submit"]:active {
 	transform: scale(0.98);
+}
+
+#cancel-todo-form {
+	padding: 0.8rem 1.25rem;
+	border: 1px solid var(--border);
+	border-radius: var(--radius-md);
+	background-color: var(--surface);
+	color: var(--text-secondary);
+	font-weight: 600;
+	cursor: pointer;
+	transition:
+		background-color 150ms ease,
+		color 150ms ease;
+}
+
+#cancel-todo-form:hover {
+	background-color: #f3f4f6;
+	color: var(--text-primary);
 }
 
 .edit-todo,
@@ -352,6 +395,10 @@ button {
 .empty-message {
 	margin-top: 1rem;
 	font-style: italic;
+}
+
+[hidden] {
+	display: none !important;
 }
 
 .toggle-details {
@@ -407,9 +454,14 @@ button {
 
 	.form-group:nth-child(1),
 	.form-group:nth-child(2),
-	#todo-form button[type="submit"] {
+	.todo-form-actions {
 		grid-column: auto;
-	}
+}
+
+	.todo-form-actions {
+		grid-column: auto;
+		flex-direction: column;
+}
 
 	.todo-item {
 		grid-template-columns: auto minmax(0, 1fr) auto;

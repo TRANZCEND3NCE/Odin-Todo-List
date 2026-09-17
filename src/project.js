@@ -1,5 +1,3 @@
-
-
 function createProject(
 	name,
 	id = crypto.randomUUID()
