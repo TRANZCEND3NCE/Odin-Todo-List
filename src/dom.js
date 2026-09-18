@@ -1,7 +1,6 @@
 import { format, parseISO } from "date-fns";
 
 // Rendering
-
 function renderProjects(projects, selectedProjectId) {
 	const projectList = document.querySelector("#project-list");
 
@@ -137,16 +136,6 @@ function renderProjectError(message) {
 }
 
 // Helpers
-
-function hideTodoForm() {
-	const todoForm = document.querySelector("#todo-form");
-	const showTodoFormButton =
-		document.querySelector("#show-todo-form");
-
-	todoForm.hidden = true;
-	showTodoFormButton.hidden = false;
-}
-
 function resetTodoForm() {
 	const todoForm = document.querySelector("#todo-form");
 	const submitButton = todoForm.querySelector('button[type="submit"]');
@@ -159,7 +148,6 @@ function resetTodoForm() {
 }
 
 // Project Events
-
 function setupProjectSelection(projectManager) {
 	const projectList = document.querySelector("#project-list");
 
@@ -171,7 +159,6 @@ function setupProjectSelection(projectManager) {
 		}
 
 		resetTodoForm();
-		hideTodoForm();
 
 		const projectId = projectButton.dataset.projectId;
 
@@ -229,7 +216,6 @@ function setupProjectDeletion(projectManager, onDataChange) {
 		onDataChange();
 
 		resetTodoForm();
-		hideTodoForm();
 
 		const selectedProject = projectManager.getSelectedProject();
 
@@ -241,7 +227,6 @@ function setupProjectDeletion(projectManager, onDataChange) {
 }
 
 // Todo Form
-
 function setupTodoFormToggle() {
 	const showTodoFormButton =
 		document.querySelector("#show-todo-form");
@@ -249,21 +234,21 @@ function setupTodoFormToggle() {
 	const cancelTodoFormButton =
 		document.querySelector("#cancel-todo-form");
 
-	const todoForm =
-		document.querySelector("#todo-form");
+	const todoDialog =
+		document.querySelector("#todo-dialog");
 
 	showTodoFormButton.addEventListener("click", () => {
-		todoForm.hidden = false;
-		showTodoFormButton.hidden = true;
+		todoDialog.showModal();
 	});
 
 	cancelTodoFormButton.addEventListener("click", () => {
 		resetTodoForm();
-		hideTodoForm();
+		todoDialog.close();
 	});
 }
 
 function setupTodoForm(onTodoSubmit) {
+	const todoDialog = document.querySelector("#todo-dialog");
 	const todoForm = document.querySelector("#todo-form");
 
 	todoForm.addEventListener("submit", (e) => {
@@ -295,11 +280,12 @@ function setupTodoForm(onTodoSubmit) {
 		}, editingTodoId);
 
 		resetTodoForm();
-		hideTodoForm();
+		todoDialog.close();
 	});
 }
 
 function setupTodoEditing(projectManager) {
+	const todoDialog = document.querySelector("#todo-dialog");
 	const todoList = document.querySelector("#todo-list");
 	const todoForm = document.querySelector("#todo-form");
 
@@ -339,17 +325,11 @@ function setupTodoEditing(projectManager) {
 
 		submitButton.textContent = "Save Changes";
 
-		todoForm.hidden = false;
-
-		const showTodoFormButton =
-			document.querySelector("#show-todo-form");
-
-		showTodoFormButton.hidden = true;
+		todoDialog.showModal();
 	});
 }
 
 // Todo Interactions
-
 function setupTodoCompletion(projectManager, onDataChange) {
 	const todoList = document.querySelector("#todo-list");
 
@@ -428,7 +408,6 @@ function setupTodoDetails() {
 }
 
 // Exports
-
 export { 
 	 renderProjects, 
 	 setupProjectSelection,

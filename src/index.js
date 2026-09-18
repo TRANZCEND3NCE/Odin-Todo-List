@@ -19,18 +19,22 @@ import {
 	setupTodoFormToggle
 } from "./dom.js";
 
+// Application Setup
 const savedProjects = loadProjects();
 
 const projectManager = createProjectManager(savedProjects);
 
+// Helpers
 function saveData() {
 	saveProjects(projectManager.projects);
 }
 
+// Initial Data
 if (!savedProjects || savedProjects.length === 0) {
 	saveData();
 }
 
+// Initial Rendering
 const selectedProject = projectManager.getSelectedProject();
 
 renderProjects(projectManager.projects, selectedProject.id);
@@ -38,15 +42,18 @@ renderProjects(projectManager.projects, selectedProject.id);
 renderSelectedProject(selectedProject);
 renderTodos(selectedProject.todos);
 
+// Project Event Setup
 setupProjectSelection(projectManager);
 setupProjectDeletion(projectManager, saveData);
 
+// Todo Event Setup
 setupTodoCompletion(projectManager, saveData);
 setupTodoDeletion(projectManager, saveData);
 setupTodoEditing(projectManager);
 setupTodoDetails();
 setupTodoFormToggle();
 
+// Project Form
 setupProjectForm((projectName) => {
 	const project = projectManager.addProject(projectName);
 
@@ -67,9 +74,11 @@ setupProjectForm((projectName) => {
 	renderProjects(projectManager.projects, selectedProject.id);
 });
 
+// Todo Form
 setupTodoForm((todoData, editingTodoId) => {
 	const project = projectManager.getSelectedProject();
 
+	// Edit Existing Todo
 	if (editingTodoId) {
 		const todo = project.getTodo(editingTodoId);
 
@@ -91,6 +100,7 @@ setupTodoForm((todoData, editingTodoId) => {
 		return;
 	}
 
+	// Create New Todo
 	const todo = createTodo(
 		todoData.title,
 		todoData.description,

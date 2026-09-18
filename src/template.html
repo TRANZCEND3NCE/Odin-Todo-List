@@ -1,75 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Odin Todo List</title>
 </head>
+
 <body>
 
+	<!-- App Layout -->
 	<div id="app">
+
+		<!-- Sidebar -->
 		<aside class="sidebar">
 			<h1>Todo List</h1>
 
+			<!-- Projects -->
 			<div class="projects-section">
 				<h2>Projects</h2>
 
+				<!-- Project Form -->
 				<form id="project-form">
 					<input type="text" id="project-name" placeholder="Project name" required />
 
 					<button type="submit">Add Project</button>
 				</form>
-				
+
+				<!-- Project Error -->
 				<p id="project-error"></p>
 
+				<!-- Project List -->
 				<div id="project-list"></div>
 			</div>
 		</aside>
 
+		<!-- Main Content -->
 		<main class="main-content">
-	<h2 id="project-title"></h2>
+			<h2 id="project-title"></h2>
 
-	<button type="button" id="show-todo-form">
-		Add Todo
-	</button>
-
-	<form id="todo-form" hidden>
-		<div class="form-group">
-			<label for="todo-title">Title</label>
-			<input type="text" id="todo-title" required />
-		</div>
-
-		<div class="form-group">
-			<label for="todo-description">Description</label>
-			<textarea id="todo-description" required></textarea>
-		</div>
-
-		<div class="form-group">
-			<label for="todo-due-date">Due date</label>
-			<input type="date" id="todo-due-date" required />
-		</div>
-
-		<div class="form-group">
-			<label for="todo-priority">Priority</label>
-			<select id="todo-priority">
-				<option value="low">Low</option>
-				<option value="medium" selected>Medium</option>
-				<option value="high">High</option>
-			</select>
-		</div>
-
-		<div class="todo-form-actions">
-			<button type="submit">Add Todo</button>
-
-			<button type="button" id="cancel-todo-form">
-				Cancel
+			<button type="button" id="show-todo-form">
+				Add Todo
 			</button>
-		</div>
-	</form>
 
-	<div id="todo-list"></div>
-</main>
+			<!-- Todo Dialog -->
+			<dialog id="todo-dialog">
+
+				<!-- Todo Form -->
+				<form id="todo-form">
+
+					<!-- Title -->
+					<div class="form-group">
+						<label for="todo-title">Title</label>
+						<input type="text" id="todo-title" required />
+					</div>
+
+					<!-- Description -->
+					<div class="form-group">
+						<label for="todo-description">Description</label>
+						<textarea id="todo-description" required></textarea>
+					</div>
+
+					<!-- Due Date -->
+					<div class="form-group">
+						<label for="todo-due-date">Due date</label>
+						<input type="date" id="todo-due-date" required />
+					</div>
+
+					<!-- Priority -->
+					<div class="form-group">
+						<label for="todo-priority">Priority</label>
+						<select id="todo-priority">
+							<option value="low">Low</option>
+							<option value="medium" selected>Medium</option>
+							<option value="high">High</option>
+						</select>
+					</div>
+
+					<!-- Form Actions -->
+					<div class="todo-form-actions">
+						<button type="submit">Add Todo</button>
+
+						<button type="button" id="cancel-todo-form">
+							Cancel
+						</button>
+					</div>
+				</form>
+			</dialog>
+
+			<!-- Todo List -->
+			<div id="todo-list"></div>
+		</main>
 	</div>
-	
+
 </body>
+
 </html>
