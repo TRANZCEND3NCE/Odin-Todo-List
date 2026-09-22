@@ -22,10 +22,6 @@
 	--shadow-sm: 0 1px 3px rgb(0 0 0 / 0.08);
 }
 
-* {
-  box-sizing: border-box;
-}
-
 /* Base / Reset */
 * {
 	box-sizing: border-box;
